@@ -1,0 +1,32 @@
+{
+  "name": "@jamespatrickwhite/utilityurls",
+  "version": "0.7.0",
+  "description": "A collection of utility URL classes that simplify configuration details",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "test": "c8 tap --no-coverage"
+  },
+  "keywords": [
+    "utility",
+    "url",
+    "iot"
+  ],
+  "author": "James White",
+  "license": "MIT",
+  "homepage": "https://github.com/jamespatrickwhite/utilityurls",
+  "bugs": {
+    "url": "https://github.com/jamespatrickwhite/utilityurls/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamespatrickwhite/utilityurls.git"
+  },
+  "devDependencies": {
+    "c8": "^7.10.0",
+    "tap": "^15.1.5"
+  }
+}
