@@ -1,9 +1,26 @@
-// SmtpURL - Parses out criteria for connecting with a SMTP server
-// Format: smtp://user:pass@host:port -- NOTE: this implementation adds smtps: for TLS option
+/**
+ * @module SmtpURL
+ */
+
+/**
+ * SmtpURL - Parses out criteria for connecting with a SMTP server.
+ * Read-only mimic of the URL class, but for parsing SMTP type URLs.
+ * Use of the configuration properties will pull through the standard URL properties as much as possible.
+ * @extends external:URL
+ */
 export class SmtpURL extends URL {
   #actualProtocol = null;
 
-  constructor(urlStr) {
+  /**
+   * @constructor
+   * @param {string} urlStr - The URL containing configuration information
+   * @property {string} protocol - smtp: or smtps: for secure/TLS connection
+   * @property {string} user - The SMTP account username to connect to the server
+   * @property {string} password - The SMTP account password to connect to the server
+   * @property {string} port - [optional] The SMTP server port number; defaults to 25 for smtp: and 587 for smtps:
+   * @example smtp://user:pass@host:port
+   */
+   constructor(urlStr) {
     let actualProtocol;
     if (urlStr.startsWith('smtp://'))
       actualProtocol = 'smtp:';
@@ -20,11 +37,19 @@ export class SmtpURL extends URL {
   get port() { return super.port || (this.useTLS ? '587' : '25'); }
   get origin() { return `${this.protocol}//${super.host}`; }
 
+  /**
+   * Returns whether this connection should use a secure TLS option
+   * @returns {boolean}
+   */
   get useTLS() { return this.protocol === 'smtps:'; }
 
   toString() { return this.href; }
 
-  toJSON() {
+  /**
+   * Gets an plain object representation suitable for JSON stringification
+   * @returns {Object}
+   */
+   toJSON() {
     return {
       href: this.href,
       protocol: this.protocol,

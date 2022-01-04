@@ -8,7 +8,10 @@
     "node": ">=16"
   },
   "scripts": {
-    "test": "c8 tap --no-coverage"
+    "test": "c8 tap --no-coverage",
+    "build:docs": "npm run build:docs:md && npm run build:docs:html",
+    "build:docs:md": "jsdoc2md index.js *URL.js > API.md",
+    "build:docs:html": "jsdoc -d docs --readme README.md index.js *URL.js"
   },
   "keywords": [
     "utility",
@@ -27,6 +30,8 @@
   },
   "devDependencies": {
     "c8": "^7.10.0",
+    "jsdoc": "^3.6.7",
+    "jsdoc-to-markdown": "^7.1.0",
     "tap": "^15.1.5"
   }
 }

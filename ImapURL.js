@@ -1,11 +1,28 @@
-// ImapURL - Parses out something similar to the format described in RFC5092
-// Format: imap://user:pass@host:port/mailbox -- NOTE: this implementation adds imaps: for SSL/TLS option
-// Read-only mimic of URL but for parsing IMAP type URLs
+/**
+ * @module ImapURL
+ */
+
+/**
+ * ImapURL - Parses out IMAP connection criteria in a format similar to the one described in RFC5092.
+ * Read-only mimic of the URL class, but for parsing IMAP type URLs.
+ * Use of the configuration properties will pull through the standard URL properties as much as possible.
+ * @extends external:URL
+ */
 export class ImapURL extends URL {
 
   #actualProtocol = null;
   #mailbox = null;
 
+  /**
+   * @constructor
+   * @param {string} urlStr - The URL containing configuration information
+   * @property {string} protocol - imap: or imaps: for secure/TLS connection
+   * @property {string} user - The IMAP account username to connect with
+   * @property {string} password - The IMAP account password to connect with
+   * @property {string} port - [optional] The IMAP server port number; defaults to 143 for imap: and 993 for imaps:
+   * @property {string} pathname - [optional] The mailbox to use for operations; defaults to INBOX
+   * @example imap://user:pass@host:port/mailbox
+   */
   constructor(urlStr) {
     let actualProtocol;
     if (urlStr.startsWith('imap://'))
@@ -26,16 +43,29 @@ export class ImapURL extends URL {
     }
   }
   
+  // These just override existing URL class properties
   get href() { return `${this.#actualProtocol}${super.href.substr('http:'.length)}` }
   get protocol() { return this.#actualProtocol; }
   get port() { return super.port || (this.useTLS ? '993' : '143'); }
   get origin() { return `${this.protocol}//${super.host}`; }
 
+  /**
+   * Getter for the IMAP configuration's target mailbox property
+   * @returns {string}
+   */
   get mailbox() { return this.#mailbox; }
+  /**
+   * Getter for the IMAP configuration's use of TLS option
+   * @returns {boolean}
+   */
   get useTLS() { return this.protocol === 'imaps:'; }
 
   toString() { return this.href; }
 
+  /**
+   * Gets an plain object representation suitable for JSON stringification
+   * @returns {Object}
+   */
   toJSON() {
     return {
       href: this.href,
@@ -56,3 +86,9 @@ export class ImapURL extends URL {
   }
 
 }
+
+/**
+ * The built-in URL object
+ * @external URL
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/URL|URL}
+ */

@@ -58,10 +58,10 @@ tap.test('Supports requested MQTT version', async (test) => {
   let url = new MQTTURL('mqtt://mosquitto.example.com');
   test.equal(url.mqttVersion, 4);
 
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=5');
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=5');
   test.equal(url.mqttVersion, 5);
 
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=asdf');
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=asdf');
   test.equal(url.mqttVersion, 4);
 });
 
@@ -77,23 +77,23 @@ tap.test('Supports specified default QoS', async (test) => {
 });
 
 tap.test('Supports string parameters', async (test) => {
-  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=4');
-  test.equal(url.paramString('mqttVersion'), '4');
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=4');
+  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
+  test.equal(url.paramString('mqttversion'), '4');
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
   test.equal(url.paramString('missingparam'), '');
 });
 
 tap.test('Supports integer parameters', async (test) => {
-  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=4');
-  test.equal(url.paramInt('mqttVersion'), 4);
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=4');
+  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
+  test.equal(url.paramInt('mqttversion'), 4);
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
   test.equal(url.paramInt('missingparam'), undefined);
 });
 
 tap.test('Supports float parameters', async (test) => {
-  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=3.14');
-  test.equal(url.paramFloat('mqttVersion'), 3.14);
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttVersion=4');
+  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=3.14');
+  test.equal(url.paramFloat('mqttversion'), 3.14);
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
   test.equal(url.paramFloat('missingparam'), undefined);
 });
 
