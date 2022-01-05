@@ -1,6 +1,6 @@
 {
-  "name": "@jamespatrickwhite/utilityurls",
-  "version": "0.7.0",
+  "name": "utilityurls",
+  "version": "0.7.1",
   "description": "A collection of utility URL classes that simplify configuration details",
   "main": "index.js",
   "type": "module",
