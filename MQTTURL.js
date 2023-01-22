@@ -18,7 +18,7 @@
    * @property {string} user - [optional] The MQTT username to connect with
    * @property {string} password - [optional] The MQTT password to connect with
    * @property {string} port - [optional] The MQTT server port number; defaults to 1883 for mqtt: and 8883 for mqtts:
-   * @property {string} mqttversion - [optional] Search parameter that represents the desired version of MQTT; defaults to 4
+   * @property {string} mqttversion - [optional] Search parameter that represents the desired version of MQTT; defaults to 3.1
    * @property {string} defaultqos - [optional] Search parameter that represents the desired quality-of-service level; defaults to 2
    * @property {string} will_* - [optional] Search parameters starting with will_ are collected into an object for LWT preferences
    * @example mqtt://user:pass@host:port/?mqttversion=4&defaultqos=2&will_topic=devices/12345/onlinestatus&will_payload=offline&will_retain=true
@@ -59,7 +59,7 @@
    * Returns the desired version of MQTT to use in the connection
    * @returns {float}
    */
-  get mqttVersion() { return this.paramFloat('mqttversion') || 4; }  // 3.x, 4, 5
+  get mqttVersion() { return this.paramFloat('mqttversion') || 3.1; }  // 3.x, 5
   /**
    * Returns the requested Quality of Service for message delivery
    * @returns {int}
