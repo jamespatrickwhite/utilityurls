@@ -56,13 +56,13 @@ tap.test('Supports normal/secure options', async (test) => {
 
 tap.test('Supports requested MQTT version', async (test) => {
   let url = new MQTTURL('mqtt://mosquitto.example.com');
-  test.equal(url.mqttVersion, 4);
+  test.equal(url.mqttVersion, 3.1);
 
   url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=5');
   test.equal(url.mqttVersion, 5);
 
   url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=asdf');
-  test.equal(url.mqttVersion, 4);
+  test.equal(url.mqttVersion, 3.1);
 });
 
 tap.test('Supports specified default QoS', async (test) => {
@@ -77,23 +77,23 @@ tap.test('Supports specified default QoS', async (test) => {
 });
 
 tap.test('Supports string parameters', async (test) => {
-  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
-  test.equal(url.paramString('mqttversion'), '4');
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
+  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=3.1');
+  test.equal(url.paramString('mqttversion'), '3.1');
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=3.1');
   test.equal(url.paramString('missingparam'), '');
 });
 
 tap.test('Supports integer parameters', async (test) => {
-  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
-  test.equal(url.paramInt('mqttversion'), 4);
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
+  let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=5');
+  test.equal(url.paramInt('mqttversion'), 5);
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=5');
   test.equal(url.paramInt('missingparam'), undefined);
 });
 
 tap.test('Supports float parameters', async (test) => {
   let url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=3.14');
   test.equal(url.paramFloat('mqttversion'), 3.14);
-  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=4');
+  url = new MQTTURL('mqtt://mosquitto.example.com/?mqttversion=5');
   test.equal(url.paramFloat('missingparam'), undefined);
 });
 
@@ -148,7 +148,7 @@ tap.test('Supports JSON serialization', async (test) => {
     search: '?some_value=yes',
     hash: '',
     secure: false,
-    mqttVersion: '4',
+    mqttVersion: '3.1',
     defaultQoS: 2,
     will: undefined,
   });
